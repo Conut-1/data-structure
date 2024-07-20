@@ -7,25 +7,25 @@ class Node {
   }
 }
 
-class LinkedListError extends Error {
+export class LinkedListError extends Error {
   constructor(message) {
     super(message);
     this.name = "LinkedListError";
   }
 }
 
-class LinkedList {
+export class LinkedList {
   head = new Node(null);
   tail = this.head;
   size = 0;
 
-  at(index) {
+  _getNode(index) {
     if (index < 0 || index >= this.size) {
       throw new LinkedListError("Index out of linked list.");
     }
 
     if (index === this.size - 1) {
-      return this.tail.data;
+      return this.tail;
     }
 
     let cur = this.head.next;
@@ -34,7 +34,11 @@ class LinkedList {
       cur = cur.next;
       count++;
     }
-    return cur.data;
+    return cur;
+  }
+
+  at(index) {
+    return this._getNode(index).data;
   }
 
   append(data) {
@@ -68,7 +72,7 @@ class LinkedList {
     }
 
     const newNode = new Node(data);
-    const prevNode = this.at(index - 1);
+    const prevNode = this._getNode(index - 1);
     newNode.next = prevNode.next;
     prevNode.next = newNode;
 
@@ -96,7 +100,7 @@ class LinkedList {
       return this.removeFirst();
     }
 
-    const prevNode = this.at(index - 1);
+    const prevNode = this._getNode(index - 1);
     const targetNode = prevNode.next;
     prevNode.next = targetNode.next;
 
