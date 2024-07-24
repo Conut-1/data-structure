@@ -1,4 +1,4 @@
-class StackWithArray {
+export class StackWithArray {
   stack = [];
 
   peek() {

@@ -1,6 +1,6 @@
 import { LinkedList } from "../Linked List/LinkedList.js";
 
-class StackWithLinkedList {
+export class StackWithLinkedList {
   stack = new LinkedList();
 
   peek() {
