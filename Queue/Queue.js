@@ -1,6 +1,6 @@
 import { LinkedList } from "../Linked List/LinkedList.js";
 
-class Queue {
+export class Queue {
   queue = new LinkedList();
 
   enqueue(data) {
