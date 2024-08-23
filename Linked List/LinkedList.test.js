@@ -98,6 +98,7 @@ describe("linked list", () => {
   });
 
   it("remove", () => {
+    // 마지막 remove 확인
     linkedList.append(1);
     linkedList.append(2);
     linkedList.append(3);
@@ -130,5 +131,28 @@ describe("linked list", () => {
     expect(() => linkedList.at(3)).toThrow(LinkedListError);
 
     expect(linkedList.size === 3).toBeTruthy();
+  });
+
+  it("remove last element", () => {
+    linkedList.append(1);
+    linkedList.append(2);
+    linkedList.append(3);
+    linkedList.append(4);
+    linkedList.append(5);
+
+    expect(linkedList.remove(4)).toBe(5);
+    expect(() => linkedList.at(4)).toThrow(LinkedListError);
+    expect(linkedList.size === 4).toBeTruthy();
+  });
+
+  it("remove out of index", () => {
+    linkedList.append(1);
+    linkedList.append(2);
+    linkedList.append(3);
+    linkedList.append(4);
+    linkedList.append(5);
+
+    expect(() => linkedList.remove(5)).toThrow(LinkedListError);
+    expect(() => linkedList.remove(-1)).toThrow(LinkedListError);
   });
 });

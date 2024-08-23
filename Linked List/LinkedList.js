@@ -102,6 +102,9 @@ export class LinkedList {
 
     const prevNode = this._getNode(index - 1);
     const targetNode = prevNode.next;
+    if (targetNode === null) {
+      throw new LinkedListError("Index out of linked list.");
+    }
     prevNode.next = targetNode.next;
 
     if (index === this.size - 1) {
