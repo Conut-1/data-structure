@@ -17,8 +17,13 @@ class DoublyLinkedListError extends Error {
 
 class DoublyLinkedList {
   head = new Node(null);
-  tail = this.head;
+  tail = new Node(null);
   size = 0;
+
+  constructor() {
+    this.head.next = this.tail;
+    this.tail.prev = this.head;
+  }
 
   _getNode(index) {
     if (index < 0 || index >= this.size) {
@@ -26,7 +31,7 @@ class DoublyLinkedList {
     }
 
     if (index === this.size - 1) {
-      return this.tail;
+      return this.tail.prev;
     }
 
     let cur = this.head.next;
@@ -45,21 +50,19 @@ class DoublyLinkedList {
   insertFirst(data) {
     const newNode = new Node(data);
     newNode.next = this.head.next;
+    this.head.next.prev = newNode;
     newNode.prev = this.head;
     this.head.next = newNode;
-
-    if (this.size === 0) {
-      this.tail = newNode;
-    }
 
     this.size++;
   }
 
   insertLast(data) {
     const newNode = new Node(data);
-    newNode.prev = this.tail;
-    this.tail.next = newNode;
-    this.tail = newNode;
+    newNode.prev = this.tail.prev;
+    this.tail.prev.next = newNode;
+    newNode.next = this.tail;
+    this.tail.prev = newNode;
 
     this.size++;
   }
@@ -75,11 +78,10 @@ class DoublyLinkedList {
 
     const newNode = new Node(data);
     const prevNode = this._getNode(index - 1);
-    const nextNode = prevNode.next;
-    newNode.next = nextNode;
+    newNode.next = prevNode.next;
+    prevNode.next.prev = newNode;
     newNode.prev = prevNode;
     prevNode.next = newNode;
-    nextNode.prev = newNode;
 
     this.size++;
   }
@@ -90,15 +92,8 @@ class DoublyLinkedList {
     }
 
     const targetNode = this.head.next;
-    const nextNode = targetNode.next;
-    this.head.next = nextNode;
-    if (nextNode !== null) {
-      nextNode.prev = this.head;
-    }
-
-    if (this.size === 1) {
-      this.tail = this.head;
-    }
+    targetNode.next.prev = targetNode.prev;
+    targetNode.prev.next = targetNode.next;
 
     this.size--;
     return targetNode.data;
@@ -109,13 +104,9 @@ class DoublyLinkedList {
       return null;
     }
 
-    const targetNode = this.tail;
-    const prevNode = targetNode.prev;
-    prevNode.next = targetNode.next;
-
-    if (this.size === 1) {
-      this.tail = this.head;
-    }
+    const targetNode = this.tail.prev;
+    targetNode.next.prev = targetNode.prev;
+    targetNode.prev.next = targetNode.next;
 
     this.size--;
     return targetNode.data;
@@ -131,14 +122,8 @@ class DoublyLinkedList {
     }
 
     const targetNode = this._getNode(index);
+    targetNode.next.prev = targetNode.prev;
     targetNode.prev.next = targetNode.next;
-    if (targetNode.next !== null) {
-      targetNode.next.prev = targetNode.prev;
-    }
-
-    if (index === this.size - 1) {
-      this.tail = targetNode.prev;
-    }
 
     this.size--;
     return targetNode.data;
