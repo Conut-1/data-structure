@@ -8,14 +8,14 @@ class Node {
   }
 }
 
-class DoublyLinkedListError extends Error {
+export class DoublyLinkedListError extends Error {
   constructor(message) {
     super(message);
     this.name = "DoublyLinkedListError";
   }
 }
 
-class DoublyLinkedList {
+export class DoublyLinkedList {
   head = new Node(null);
   tail = new Node(null);
   size = 0;
