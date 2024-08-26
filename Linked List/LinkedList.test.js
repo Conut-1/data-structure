@@ -98,7 +98,6 @@ describe("linked list", () => {
   });
 
   it("remove", () => {
-    // 마지막 remove 확인
     linkedList.append(1);
     linkedList.append(2);
     linkedList.append(3);
