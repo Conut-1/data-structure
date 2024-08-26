@@ -36,7 +36,7 @@ export class DoublyLinkedList {
 
     let cur = this.head.next;
     let count = 0;
-    while (count != index) {
+    while (count !== index) {
       cur = cur.next;
       count++;
     }
