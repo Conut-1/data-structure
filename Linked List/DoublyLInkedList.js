@@ -70,10 +70,12 @@ export class DoublyLinkedList {
   insert(index, data) {
     if (index === 0) {
       this.insertFirst(data);
+      return;
     }
 
     if (index === this.size) {
       this.insertLast(data);
+      return;
     }
 
     const newNode = new Node(data);
