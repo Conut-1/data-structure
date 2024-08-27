@@ -23,6 +23,33 @@ describe("linked list", () => {
     expect(list.size === 5).toBeTruthy();
   });
 
+  it("insertFirst node linked", () => {
+    const elements = [1, 2, 3, 4, 5];
+    elements.forEach((value) => {
+      list.insertFirst(value);
+    });
+
+    let cur = list.head.next;
+    let count = 0;
+    while (cur !== list.tail) {
+      expect(cur.data === elements[list.size - count - 1]).toBeTruthy();
+      cur = cur.next;
+      count++;
+    }
+
+    expect(count === 5).toBeTruthy();
+
+    cur = list.tail.prev;
+    count = 0;
+    while (cur !== list.head) {
+      expect(cur.data === elements[count]).toBeTruthy();
+      cur = cur.prev;
+      count++;
+    }
+
+    expect(count === 5).toBeTruthy();
+  });
+
   it("insertLast", () => {
     list.insertLast(1);
     list.insertLast(2);
@@ -37,6 +64,33 @@ describe("linked list", () => {
     expect(list.at(4)).toBe(5);
 
     expect(list.size === 5).toBeTruthy();
+  });
+
+  it("insertLast node linked", () => {
+    const elements = [1, 2, 3, 4, 5];
+    elements.forEach((value) => {
+      list.insertLast(value);
+    });
+
+    let cur = list.head.next;
+    let count = 0;
+    while (cur !== list.tail) {
+      expect(cur.data === elements[count]).toBeTruthy();
+      cur = cur.next;
+      count++;
+    }
+
+    expect(count === 5).toBeTruthy();
+
+    cur = list.tail.prev;
+    count = 0;
+    while (cur !== list.head) {
+      expect(cur.data === elements[list.size - count - 1]).toBeTruthy();
+      cur = cur.prev;
+      count++;
+    }
+
+    expect(count === 5).toBeTruthy();
   });
 
   it("getNode index out of linked list", () => {
@@ -68,6 +122,42 @@ describe("linked list", () => {
     expect(list.at(4)).toBe(3);
 
     expect(list.size === 5).toBeTruthy();
+  });
+
+  it("insert node linked", () => {
+    const elements = [];
+    const insertInstruction = [
+      [0, 1],
+      [0, 2],
+      [2, 3],
+      [2, 4],
+      [3, 5],
+    ];
+
+    insertInstruction.forEach(([index, data]) => {
+      list.insert(index, data);
+      elements.splice(index, 0, data);
+    });
+
+    let cur = list.head.next;
+    let count = 0;
+    while (cur !== list.tail) {
+      expect(cur.data === elements[count]).toBeTruthy();
+      cur = cur.next;
+      count++;
+    }
+
+    expect(count === 5).toBeTruthy();
+
+    cur = list.tail.prev;
+    count = 0;
+    while (cur !== list.head) {
+      expect(cur.data === elements[list.size - count - 1]).toBeTruthy();
+      cur = cur.prev;
+      count++;
+    }
+
+    expect(count === 5).toBeTruthy();
   });
 
   it("insert index out of list", () => {
@@ -105,6 +195,36 @@ describe("linked list", () => {
     expect(list.size === 3).toBeTruthy();
   });
 
+  it("removeFirst node linked", () => {
+    const elements = [1, 2, 3, 4];
+    elements.forEach((value) => {
+      list.insertLast(value);
+    });
+
+    list.removeFirst();
+    elements.shift();
+
+    let cur = list.head.next;
+    let count = 0;
+    while (cur !== list.tail) {
+      expect(cur.data === elements[count]).toBeTruthy();
+      cur = cur.next;
+      count++;
+    }
+
+    expect(count === 3).toBeTruthy();
+
+    cur = list.tail.prev;
+    count = 0;
+    while (cur !== list.head) {
+      expect(cur.data === elements[list.size - count - 1]).toBeTruthy();
+      cur = cur.prev;
+      count++;
+    }
+
+    expect(count === 3).toBeTruthy();
+  });
+
   it("removeFirst remove empty list", () => {
     expect(list.removeFirst()).toBeNull();
   });
@@ -123,6 +243,36 @@ describe("linked list", () => {
     expect(() => list.at(3)).toThrow(DoublyLinkedListError);
 
     expect(list.size === 3).toBeTruthy();
+  });
+
+  it("removeLast node linked", () => {
+    const elements = [1, 2, 3, 4];
+    elements.forEach((value) => {
+      list.insertLast(value);
+    });
+
+    list.removeLast();
+    elements.pop();
+
+    let cur = list.head.next;
+    let count = 0;
+    while (cur !== list.tail) {
+      expect(cur.data === elements[count]).toBeTruthy();
+      cur = cur.next;
+      count++;
+    }
+
+    expect(count === 3).toBeTruthy();
+
+    cur = list.tail.prev;
+    count = 0;
+    while (cur !== list.head) {
+      expect(cur.data === elements[list.size - count - 1]).toBeTruthy();
+      cur = cur.prev;
+      count++;
+    }
+
+    expect(count === 3).toBeTruthy();
   });
 
   it("removeLast remove empty list", () => {
@@ -189,6 +339,39 @@ describe("linked list", () => {
     expect(list.remove(4)).toBe(5);
     expect(() => list.at(4)).toThrow(DoublyLinkedListError);
     expect(list.size === 4).toBeTruthy();
+  });
+
+  it("remove node linked", () => {
+    const elements = [1, 2, 3, 4, 5];
+    const removeInstruction = [1, 0, 2];
+
+    elements.forEach((value) => {
+      list.insertLast(value);
+    });
+    removeInstruction.forEach((value) => {
+      list.remove(value);
+      elements.splice(value, 1);
+    });
+
+    let cur = list.head.next;
+    let count = 0;
+    while (cur !== list.tail) {
+      expect(cur.data === elements[count]).toBeTruthy();
+      cur = cur.next;
+      count++;
+    }
+
+    expect(count === 2).toBeTruthy();
+
+    cur = list.tail.prev;
+    count = 0;
+    while (cur !== list.head) {
+      expect(cur.data === elements[list.size - count - 1]).toBeTruthy();
+      cur = cur.prev;
+      count++;
+    }
+
+    expect(count === 2).toBeTruthy();
   });
 
   it("remove out of index", () => {
