@@ -8,16 +8,16 @@ class Node {
 }
 
 class BinarySearchTree {
-  root = null;
+  root = new Node(null);
 
   search(data) {
     let cur = this.root;
 
-    while (cur !== null && data !== cur.key) {
+    while (cur.key !== null && data !== cur.key) {
       cur = data < cur.key ? cur.left : cur.right;
     }
 
-    return cur === null ? null : cur.data;
+    return cur.key === null ? null : cur.data;
   }
 
   insert(data) {}
