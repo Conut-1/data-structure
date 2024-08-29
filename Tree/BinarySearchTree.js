@@ -1,6 +1,7 @@
 class Node {
   left = null;
   right = null;
+  parent = null;
 
   constructor(data) {
     this.key = data;
@@ -8,7 +9,11 @@ class Node {
 }
 
 class BinarySearchTree {
-  root = new Node(null);
+  constructor() {
+    const rootNode = new Node(null);
+    rootNode.parent = new Node(null);
+    this.root = rootNode;
+  }
 
   search(data) {
     let cur = this.root;
